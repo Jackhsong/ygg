@@ -1,0 +1,10 @@
+body{ background:#f6f6f6; font-family:'微软雅黑'; text-align:center; height:100%;}
+.container{width:100%; max-width:750px;}
+.login{ width:90%; margin-left:5%; border:1px solid #e7e4e4; background:#ffffff; border-radius:10px; height:60px; padding:10px; margin-top:15px;}
+.login_lr{ float:left; width:35%; height:40px; background:#f96062; color:#ffffff; line-height:40px; font-size:1em; text-align:center;}
+.login_lf{float:left; width:15%;}
+.login_lm{float:left; width:50%; height:40px;}
+.login_lm input{height:40px; left:50px; border:none;}
+.form-group1 button{width:90%;  background:#f96062; color:#ffffff;border-radius:10px; height:50px; font-size:1.4em;padding:10px; margin-top:15px;}
+.form-control{ box-shadow:none;height:40px; left:50px; border:none; }
+.img-responsive{ display:inline-block;}

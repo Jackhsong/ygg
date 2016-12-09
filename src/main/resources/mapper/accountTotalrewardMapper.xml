@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AccountTotalrewardMapper">
+	<select id="findAccountTotalrewardById" parameterType="int"
+		resultType="Float">
+		SELECT
+		total_reward from qqbs_reward
+		WHERE
+		account_id=#{account_id}
+	</select>
+
+	<insert id="insertIntoWithdrawCash" parameterType="QqbsRewardEntity">
+		INSERT INTO
+		qqbs_reward(account_id,total_reward,already_cash,withdraw_cash,create_time)
+		VALUES
+		(#{accountId},#{totalReward},#{alreadyCash},#{withdrawCash},'2016-07-08
+		00:00:00')
+	</insert>
+
+	<update id="updateWithdrawCashById" parameterType="QqbsRewardEntity">
+		UPDATE
+		qqbs_reward
+		SET
+		total_reward=#{totalReward},withdraw_cash=#{totalReward}-already_cash
+		WHERE
+		account_id=#{accountId}
+	</update>
+
+</mapper>

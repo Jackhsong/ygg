@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+    <mapper namespace="TestMapper">  
+    <select id="findMessageById" parameterType="String" resultType="TestEntity">
+       select image,nickname from account where id=#{account_id}
+    </select>
+    
+    <select id="findTotalRewardByid" parameterType="String" resultType="Float">
+       SELECT SUM(withdraw_cash) AS totalreward FROM `qqbs_fans_order` WHERE account_id=#{account_id}
+    </select>
+    
+    <select id="findWithdrawCashByid" parameterType="String" resultType="Float">
+       SELECT withdraw_cash FROM qqbs_reward WHERE account_id=#{account_id}
+    </select>
+    
+    <select id="findPointByid" parameterType="String" resultType="Integer">
+       SELECT point FROM account_point_view WHERE account_id=#{account_id}
+    </select>
+    
+    <select id="findFansCountByid" parameterType="String" resultType="TestEntity">
+       SELECT COUNT(real_price) AS fans,SUM(real_price) AS allreward
+         FROM `qqbs_fans_order` WHERE account_id=#{account_id} AND `status`=2;
+    </select>
+    
+    <select id="findFansFatherByid" parameterType="String" resultType="String">
+       SELECT ac.nickname FROM account AS ac,
+       (SELECT account_id FROM `qqbs_fans` WHERE fans_account_id=#{account_id} AND `level`=1) AS bc 
+        WHERE ac.id=bc.account_id
+    </select>
+    
+    <sql id="base_sql">
+     fake_id AS fakeId, create_datetime AS createDatetime, update_datetime AS updateDatetime, 
+     delete_at AS deleteAt, bargainer_uuid AS bargainerUuid,people_bargain AS peopleBargain,
+	 bargain_amount AS bargainAmount, is_bargain AS isBargain, user_uuid AS userUuid, 
+	 status AS status, current_price AS currentPrice, is_pay AS isPay,activity_id AS activityid
+    </sql>
+    
+    <select id="findBargainByAccountid" parameterType="String" resultType="HcbBargain">
+      select <include refid="base_sql"/> from bargain where bargainer_uuid=#{account_id} and delete_at is null 
+      and activity_id=21
+    </select>
+    
+    <insert id="insertIntoBargainMessage" parameterType="HcbBargain">
+       insert into bargain(create_datetime,bargainer_uuid,people_bargain,user_uuid,current_price,activity_id) values(
+       #{createDatetime},#{bargainerUuid},#{peopleBargain},#{userUuid},#{currentPrice},#{activityid})
+    </insert>
+    
+    <select id="findSumNumberByActivityId" parameterType="Integer" resultType="Integer" >
+       select sum(is_pay) from bargain where is_pay>=1 and activity_id=#{activityid}
+    </select>
+    
+    <select id="findAllBargainPeople" parameterType="Integer" resultType="Integer">
+        select count(*) from bargain where activity_id=#{activityid}
+    </select>
+    
+    <select id="findListParticipant" parameterType="HcbBargain" resultType="HcbParticipant">
+       select user_uuid AS userUuid,goods_price AS goodsPrice,full_name AS fullName,avatar AS avatar 
+       from participant where
+       bargainer_uuid=#{bargainerUuid} and activity_id=#{activityid}
+    </select>
+    
+    <select id="findGoodsPriceByid" parameterType="HcbParticipant" resultType="String">
+        select goods_price from participant 
+        where user_uuid=#{userUuid} and bargainer_uuid=#{bargainerUuid} and activity_id=#{activityid}
+    </select>
+    
+    <select id="findCountNumberByid" parameterType="HcbBargain" resultType="int">
+        select count(*) from participant where bargainer_uuid=#{bargainerUuid} and activity_id=#{activityid}
+    </select>
+    
+    <update id="updateBargainMessage" parameterType="HcbBargain">
+        update bargain set current_price=#{currentPrice} where bargainer_uuid=#{bargainerUuid} and activity_id=#{activityid} 
+       
+    </update>
+    
+    <insert id="insertIntoParticipantMessage" parameterType="HcbParticipant">
+         insert into participant(user_uuid,goods_price,bargainer_uuid,full_name,avatar,activity_id)values(
+         #{userUuid},#{goodsPrice},#{bargainerUuid},#{fullName},#{avatar},#{activityid})
+    </insert>
+
+
+    
+    </mapper>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

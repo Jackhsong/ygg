@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="QqbsFansOrderMapper">
+	<select id="findSumPriceByAccountId" parameterType="int"
+		resultType="QqbsFansOrderEntity">
+		SELECT
+		SUM(withdraw_cash) AS withdraw,SUM(real_price) AS price
+		FROM
+		`qqbs_fans_order`
+		WHERE
+		`account_id` =#{account_id}
+	</select>
+
+	<select id="findAllOrderMessages" parameterType="int"
+		resultType="QqbsFansOrderEntity">
+		SELECT
+		a.*,b.image
+		FROM
+		(SELECT number,create_time,fans_nickname,fans_account_id,withdraw_cash
+		FROM
+		`qqbs_fans_order` WHERE `account_id` =#{account_id}) AS a,`account` AS b
+		WHERE a.fans_account_id=b.id
+	</select>
+
+
+
+</mapper>

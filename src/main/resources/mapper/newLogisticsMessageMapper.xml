@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="NewLogisticsMessageMapper">
+	<select id="findAllLogisticsMessages" resultType="NewLogisticsMessageEntity">
+		SELECT
+		`channel` ,`number`
+		FROM
+		`order_logistics`
+		WHERE
+		`create_time` >(SELECT SUBDATE(now(),interval 30 day))
+		GROUP BY
+		`number`
+	</select>
+
+	<select id="findAllLogistcsMessagesNumber" resultType="String">
+		SELECT
+		`logistics_number`
+		FROM
+		`logistics_detail`
+		WHERE
+		`operate_time`>(SELECT SUBDATE(now(),interval 30 day))
+		GROUP BY
+		`logistics_number`
+	</select>
+
+	<insert id="insertIntoNoMessages" parameterType="NewLogisticsMessageEntity">
+		INSERT INTO
+		`logistics_detail`(logistics_channel,logistics_number,operate_time,content)
+		VALUES
+		(#{channel},#{number},#{operatetime},#{content})
+	</insert>
+
+	<select id="findLogisticsMessageByNumber" parameterType="String"
+		resultType="String">
+		SELECT
+		content
+		FROM
+		`logistics_detail`
+		WHERE
+		logistics_number=#{number}
+	</select>
+
+
+</mapper>

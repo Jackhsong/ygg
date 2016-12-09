@@ -1,0 +1,54 @@
+@charset "utf-8";
+body{font-size:12px;font-family:"微软雅黑"; margin:0; padding:0;}
+p,h1,h2,h3,h4,h5,h6{ margin:0 auto;}
+h1{ text-align:center;}
+li{ list-style-type:none; }
+ul,ol{list-style:none; margin:0 auto; padding:0px;}
+a{color:#FFF;text-decoration:none}
+
+.section sec1{ text-align:center;}
+.box1{ width:80%; position:fixed; bottom:8%; left:5%;color:#a75d14;background:#ffc706; height:auto; margin:0 auto; padding:20px 5%;border-radius:5px;}
+.box1 h1{  font-size:1.5em; text-align:center; line-height:1.5em;}
+.box1 p{ font-size:1.2em; padding:0; }
+.box_a{ position:relative; text-align:center;}
+.guize{ background:#f4f6e1; position:absolute; top:50%; left:36%;width:24%; padding:10px 2%;font-size:1.5em; margin:auto 0; font-weight:bold; border-radius:6px;box-shadow:3px 3px 3px #444;}
+.guizeA{ background:#f4f6e1; position:absolute; top:50%; left:15%;width:66%; padding:10px 2%;font-size:1.5em; margin:auto 0; font-weight:bold; border-radius:6px;box-shadow:3px 3px 3px #444;}
+.guizeB{ background:#f4f6e1; position:absolute; top:3%; left:36%;width:24%; padding:10px 2%;font-size:1.5em; margin:auto 0; font-weight:bold; border-radius:6px;box-shadow:3px 3px 3px #444;}
+.jia_lf{ width:45%; margin-left:5%; float:left;}
+.jiage_lf{ background:#a75d14; color:#ffc706;padding:6px 2%;font-size:1.2em; margin:auto 0; width:40%;font-weight:bold; border-radius:6px;box-shadow:3px 3px 3px #444; text-align:center; float:left;margin-left:10%;}
+.jia_lf span { color:#da1617; font-size:1.7em;line-height:1.7em; font-weight:bold;margin-left:5%;}
+
+.myclear{clear:both;}
+
+.mybuttom{ width:100%; height:auto; clear:both; margin-top:10%;}
+.find_bt{ width:35%; height:35px; background:url(images/jiage_bt.jpg); background-size:100% 35px; color:#eff9bc; font-size:1.5em; line-height:35px; margin-left:8%; padding-left:5%; float:left;}
+
+
+/*好友助力列表*/
+.helplist{ width:100%; height:auto;margin-top:10%;}
+.helplist h1{ font-size:1.9em;}
+.mylist{ width:80%; height:auto;padding:10px 5%; padding-top:25px;background:#ffc706; margin-left:5%;}
+.mylist ul li{ width:100%; height:70px; clear:both;}
+.helperimg{ width:50px; height:50px; border-radius:25px; background:#a75d14; float:left; overflow:hidden;}
+.namenum{ width:60%; height:auto; float:left;  margin-left:5%;}
+.helpername{ font-size:1.3em; line-height:1.4em; font-weight:bold; padding-top:0.5em;}
+.helpernum{font-size:1.2em; line-height:1.2em; color:#a75d14;}
+.helpernum span{ color:#dc2f2b;}
+
+/*规则弹窗*/
+#mycode{font-size:1.5em;color:#FF3500;}
+.black_overlay{display:none;position:fixed;top:0%;left:0%;width:100%;height:100%;background-color:black;z-index:1001;-moz-opacity:0.8;opacity:.80;filter:alpha(opacity=80); overflow:hidden;}
+.rules{ width:70%; height:auto; position:fixed; top:10%; left:10%; background:#FFFFFF; padding:10px 5%; text-align:center; display:none; z-index:1002;}.rules p{ font-size:1.2em; line-height:1.5em;text-align:left;}
+.rules_top{ background:#e43f3b; width:100%; height:40px; line-height:40px; font-size:1.3em; color:#ffffff; font-weight:bold; border-radius:3px;}
+.rules_bottom{ background:#e43f3b; width:40%; height:40px; margin-left:30%; line-height:40px; font-size:1.3em; color:#ffffff; font-weight:bold; border-radius:5px; margin-top:20px;}
+
+.myhit{ width:60%; height:auto; position:fixed; top:30%; left:15%; background:#e8413e; padding:10px 5%; text-align:center; display:none; z-index:1002; color:#ffffff;}
+.myhit p{ font-size:1.5em; line-height:2em;}
+.myhit p span{ color:#f4e35f; font-weight:bold;}
+
+.enter_bt1{ width:30%; height:auto;position:fixed; right:0; top:0; text-align:center;}
+.enter_bt8{background:#e8413e; width:40%; height:40px;line-height:40px; margin-left:30%; text-align:center;font-size:1.3em; color:#ffffff; font-weight:bold; border-radius:5px;}a {color:#FFF;}
+@media (max-width :330px)
+{
+	body{ font-size:10px;}
+}

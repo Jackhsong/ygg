@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AccountWithdrawCashMapper">
+	<select id="findAccountWithdrawCash" resultType="AccountWithdrawCashEntity">
+		SELECT
+		sum(withdraw_cash) AS withdraw,
+		account_id AS id
+		FROM
+		qqbs_fans_order
+		GROUP BY
+		account_id
+
+	</select>
+
+</mapper>

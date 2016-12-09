@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="HcbBargainMapper">
+	<resultMap id="BaseResultMap" type="com.ygg.webapp.entity.bargain.HcbBargain">
+		<id column="fake_id" property="fakeId" jdbcType="INTEGER" />
+		<result column="create_datetime" property="createDatetime"
+			jdbcType="TIMESTAMP" />
+		<result column="update_datetime" property="updateDatetime"
+			jdbcType="TIMESTAMP" />
+		<result column="delete_at" property="deleteAt" jdbcType="VARCHAR" />
+		<result column="bargainer_uuid" property="bargainerUuid"
+			jdbcType="VARCHAR" />
+		<result column="people_bargain" property="peopleBargain"
+			jdbcType="VARCHAR" />
+		<result column="bargain_amount" property="bargainAmount"
+			jdbcType="DOUBLE" />
+		<result column="is_bargain" property="isBargain" jdbcType="INTEGER" />
+		<result column="user_uuid" property="userUuid" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="current_price" property="currentPrice"
+			jdbcType="VARCHAR" />
+		<result column="is_pay" property="isPay" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		fake_id, create_datetime, update_datetime, delete_at,
+		bargainer_uuid,
+		people_bargain,
+		bargain_amount, is_bargain, user_uuid,
+		status, current_price, is_pay
+	</sql>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from bargain
+		where fake_id = #{fakeId,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectByBargainerUuid" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from bargain
+		where bargainer_uuid = #{bargainerUuid,jdbcType=VARCHAR}
+		and delete_at is
+		null
+	</select>
+	<select id="countTotalPayed" resultType="java.lang.Integer">
+		select count(*) from
+		bargain where delete_at is null and is_pay = 1
+	</select>
+	<select id="countTotalBargained" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select count(*) from bargain where delete_at is null and
+		current_price &lt;
+		#{originalPrice,jdbcType=VARCHAR}
+	</select>
+	<select id="listSelectByUserUuid" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from bargain
+		where user_uuid = #{userUuid,jdbcType=VARCHAR} and
+		delete_at is null
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		bargain
+		where fake_id = #{fakeId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.ygg.webapp.entity.bargain.HcbBargain">
+		insert into bargain (fake_id,
+		create_datetime, update_datetime,
+		delete_at, bargainer_uuid,
+		people_bargain,
+		bargain_amount, is_bargain, user_uuid, status,
+		current_price, is_pay
+		)
+		values (#{fakeId,jdbcType=INTEGER},
+		#{createDatetime,jdbcType=TIMESTAMP},
+		#{updateDatetime,jdbcType=TIMESTAMP},
+		#{deleteAt,jdbcType=VARCHAR},
+		#{bargainerUuid,jdbcType=VARCHAR}, #{peopleBargain,jdbcType=VARCHAR},
+		#{bargainAmount,jdbcType=DOUBLE}, #{isBargain,jdbcType=INTEGER},
+		#{userUuid,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+		#{currentPrice,jdbcType=VARCHAR}, #{isPay,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.ygg.webapp.entity.bargain.HcbBargain">
+		insert into bargain
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="fakeId != null">
+				fake_id,
+			</if>
+			<if test="createDatetime != null">
+				create_datetime,
+			</if>
+			<if test="updateDatetime != null">
+				update_datetime,
+			</if>
+			<if test="deleteAt != null">
+				delete_at,
+			</if>
+			<if test="bargainerUuid != null">
+				bargainer_uuid,
+			</if>
+			<if test="peopleBargain != null">
+				people_bargain,
+			</if>
+			<if test="bargainAmount != null">
+				bargain_amount,
+			</if>
+			<if test="isBargain != null">
+				is_bargain,
+			</if>
+			<if test="userUuid != null">
+				user_uuid,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="currentPrice != null">
+				current_price,
+			</if>
+			<if test="isPay != null">
+				is_pay,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="fakeId != null">
+				#{fakeId,jdbcType=INTEGER},
+			</if>
+			<if test="createDatetime != null">
+				#{createDatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateDatetime != null">
+				#{updateDatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleteAt != null">
+				#{deleteAt,jdbcType=VARCHAR},
+			</if>
+			<if test="bargainerUuid != null">
+				#{bargainerUuid,jdbcType=VARCHAR},
+			</if>
+			<if test="peopleBargain != null">
+				#{peopleBargain,jdbcType=VARCHAR},
+			</if>
+			<if test="bargainAmount != null">
+				#{bargainAmount,jdbcType=DOUBLE},
+			</if>
+			<if test="isBargain != null">
+				#{isBargain,jdbcType=INTEGER},
+			</if>
+			<if test="userUuid != null">
+				#{userUuid,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="currentPrice != null">
+				#{currentPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="isPay != null">
+				#{isPay,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.ygg.webapp.entity.bargain.HcbBargain">
+		update bargain
+		<set>
+			<if test="createDatetime != null">
+				create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateDatetime != null">
+				update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="deleteAt != null">
+				delete_at = #{deleteAt,jdbcType=VARCHAR},
+			</if>
+			<if test="bargainerUuid != null">
+				bargainer_uuid = #{bargainerUuid,jdbcType=VARCHAR},
+			</if>
+			<if test="peopleBargain != null">
+				people_bargain = #{peopleBargain,jdbcType=VARCHAR},
+			</if>
+			<if test="bargainAmount != null">
+				bargain_amount = #{bargainAmount,jdbcType=DOUBLE},
+			</if>
+			<if test="isBargain != null">
+				is_bargain = #{isBargain,jdbcType=INTEGER},
+			</if>
+			<if test="userUuid != null">
+				user_uuid = #{userUuid,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="currentPrice != null">
+				current_price = #{currentPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="isPay != null">
+				is_pay = #{isPay,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where fake_id = #{fakeId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.ygg.webapp.entity.bargain.HcbBargain">
+		update bargain
+		set
+		create_datetime = #{createDatetime,jdbcType=TIMESTAMP},
+		update_datetime = #{updateDatetime,jdbcType=TIMESTAMP},
+		delete_at =
+		#{deleteAt,jdbcType=VARCHAR},
+		bargainer_uuid =
+		#{bargainerUuid,jdbcType=VARCHAR},
+		people_bargain =
+		#{peopleBargain,jdbcType=VARCHAR},
+		bargain_amount =
+		#{bargainAmount,jdbcType=DOUBLE},
+		is_bargain =
+		#{isBargain,jdbcType=INTEGER},
+		user_uuid =
+		#{userUuid,jdbcType=VARCHAR},
+		status = #{status,jdbcType=VARCHAR},
+		current_price = #{currentPrice,jdbcType=VARCHAR},
+		is_pay =
+		#{isPay,jdbcType=VARCHAR}
+		where fake_id = #{fakeId,jdbcType=INTEGER}
+	</update>
+</mapper>
